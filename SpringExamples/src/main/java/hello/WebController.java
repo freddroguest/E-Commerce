@@ -45,6 +45,8 @@ public class WebController implements WebMvcConfigurer {
 	ProduitRepository repositoryProduit;
 	@Autowired
 	CouleurRepository repositoryCouleur;
+	@Autowired
+	TypeProduitRepository repositoryTypeProduit;
 	
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -76,7 +78,13 @@ public class WebController implements WebMvcConfigurer {
     	ArrayList<Couleur> l= new ArrayList<Couleur>(repositoryCouleur.findAll());
     	return l;
     }
-
+    
+    @ModelAttribute("ListeTypeProduit")
+    public ArrayList<Type_produit> getListeTypeProduit(){
+    	ArrayList<Type_produit> l= new ArrayList<Type_produit>(repositoryTypeProduit.findAll());
+    	return l;
+    }
+    
     @GetMapping("/form/{id}")
     public String showContact(Model model, @PathVariable("id") Long id)
     {
@@ -95,6 +103,29 @@ public class WebController implements WebMvcConfigurer {
     public String showForm(Model model) {
     	model.addAttribute("personForm", new Contact());
         return "form";
+    }
+    
+    @GetMapping("/typeProduitForm/{id}")
+    public String showTypeProduit(Model model, @PathVariable("id") Long id)
+    {
+    	model.addAttribute("typeProduitForm",repositoryTypeProduit.findOne(id));
+    	return "/typeProduitForm";
+    }
+    
+    @GetMapping("/typeProduitForm")
+    public String showTypeProduit(Model model) {
+    	model.addAttribute("typeProduitForm", new Type_produit());
+        return "typeProduitForm";
+    }
+    
+    @PostMapping("/typeProduitForm")
+    public String checkTypeProduitInfo(@Valid Type_produit type_produit, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "typeProduitForm";
+        }
+        repositoryTypeProduit.save(type_produit);
+        return "redirect:/";
     }
 
     @PostMapping("/form")
@@ -120,10 +151,19 @@ public class WebController implements WebMvcConfigurer {
     	repositoryProduit.delete(id);
     	return "redirect:/";
     }
+    
+    @GetMapping("/deleteTypeProduit/{id}")
+    public String deleteTypeProduit(@PathVariable("id") Long id)
+    {
+    	repositoryTypeProduit.delete(id);
+    	return "redirect:/";
+    }
 
     @GetMapping("/produitForm")
     public String showProduitForm(Model model) {
     	model.addAttribute("produitForm", new Produit());
+    	List<Type_produit> list = repositoryTypeProduit.findAll();
+    	model.addAttribute("typeProduit", list);
         return "produitForm";
     }
     

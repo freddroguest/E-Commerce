@@ -22,13 +22,14 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Désignation		</th>
+					<th>Dï¿½signation		</th>
 					<th>Commentaire		</th>
 					<th>Couleur		</th>
 					<th>Prix		</th>
 					<th>Hauteur		</th>
 					<th>Largeur		</th>
 					<th>Profondeur		</th>
+					<th>idtype		</th>
 				</tr>
 			</thead>
 		
@@ -40,6 +41,7 @@
 				<td th:text="${e.hauteur}"/>
 				<td th:text="${e.largeur}"/>
 				<td th:text="${e.profondeur}"/>	
+				<td th:text="${e.idType_produit}"/>	
 				<td>
 					<a class="btn btn-default" th:href="@{/produitForm/{id} (id=${e.id})}"> Modifier</a>
 					<a class="btn btn-default" th:href="@{/deleteProduit/{id} (id=${e.id})}"> Supprimer </a> 
@@ -47,7 +49,28 @@
 			</tr>
 		</table>
 	  </fieldset>
-		<a class="btn btn-default" href="produitForm.html" >Ajouter un produit</a>
+	  
+		<a class="btn btn-default" href="produitForm.html" style="margin-bottom:50px;">Ajouter un produit</a>
+	
+		<fieldset>
+	  	<legend> Liste des types de produit </legend>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Libelle		</th>
+				</tr>
+			</thead>
+		
+			<tr th:each="e : ${ListeTypeProduit}">
+				<td th:text="${e.libelle}"/>
+				<td>
+					<a class="btn btn-default" th:href="@{/typeProduitForm/{id} (id=${e.id})}"> Modifier</a>
+					<a class="btn btn-default" th:href="@{/deleteTypeProduit/{id} (id=${e.id})}"> Supprimer </a> 
+				</td>
+			</tr>
+		</table>
+	  </fieldset>
+		<a class="btn btn-default" href="typeProduitForm.html" >Ajouter un type de produit</a>
 	</div>
 	<div class="col-md-1"></div>
 </div>

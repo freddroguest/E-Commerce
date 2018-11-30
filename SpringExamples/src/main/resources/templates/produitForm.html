@@ -19,7 +19,7 @@
             <table>
             <input type="hidden" th:field="*{id}" />
                 <tr>
-                    <td >Désignation </td>
+                    <td >Dï¿½signation </td>
                     <td><input type="text" th:field="*{designation}" style="margin:7px;"/></td>
                     <td th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}">Name Error</td>                    
                 </tr>  
@@ -51,7 +51,7 @@
                 	<td>	
                 		<input type="hidden" th:field="*{libCouleur}" style="margin:7px;"/>              		
 						<select name="thelist" onChange="combo(this, 'libCouleur')" style="width: 200px;margin: 7px;">
-  							<option></option>
+  							<option th:text="${produitForm.libCouleur}"></option>
   							<option>Rouge</option>
   							<option>Blanc</option>
   							<option>Bleu</option>
@@ -60,6 +60,17 @@
   							<option>Gris</option>
 						</select> 
 					</td>
+				</tr>
+				<tr>
+					<td>CatÃ©gorie du produit </td>
+					<td>
+				 		<select th:field="*{idType_produit}" style="margin:7px;width:200px;">
+                        	 <option value=""></option>
+                       	 	 <option th:each="e : ${typeProduit}"
+                      	     	th:value="${e.id}"
+                            	th:utext="${e.libelle}"/>
+                  		</select>
+                	</td>
 				</tr>
 				<tr>				
                     <td><button class="btn btn-default" type="submit"  style="margin: 10px;"> Valider </button></td>
