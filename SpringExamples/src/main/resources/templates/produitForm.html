@@ -1,0 +1,96 @@
+<html>
+	<head>
+	<!-- BOOTSTRAP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    <!-- Latest compiled and minified CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"></link>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>    
+    <body>
+    	<div class="col-md-12" style="height: 50px;"> </div>
+    	<div class="col-md-12">
+    	 <div class="col-md-1"></div>
+         <div class="col-md-4"><form class="form-group" action="#" th:action="@{/produitForm}" th:object="${produitForm}" method="post">
+            <fieldset>
+            <legend>Ajout d'un nouveau produit</legend>
+            <table>
+            <input type="hidden" th:field="*{id}" />
+                <tr>
+                    <td >Désignation </td>
+                    <td><input type="text" th:field="*{designation}" style="margin:7px;"/></td>
+                    <td th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}">Name Error</td>                    
+                </tr>  
+                <tr>
+                    <td>Commentaire </td>
+                    <td><input type="text" th:field="*{commentaire}" style="margin:7px;" /></td>
+                    <td th:if="${#fields.hasErrors('commentaire')}" th:errors="*{commentaire}">commentaire Error</td>
+                </tr>      
+                <tr>
+                    <td>Prix </td>
+                    <td><input type="text" th:field="*{prix}" style="margin:7px;" /></td>
+                    <td th:if="${#fields.hasErrors('prix')}" th:errors="*{prix}">Prix Error</td>
+                </tr>
+                <tr>
+                    <td>Longueur (cm) </td>
+                    <td><input type="text" th:field="*{profondeur}" style="margin:7px;" /></td> 
+                </tr>
+                <tr>
+                    <td>Largeur (cm) </td>
+                    <td><input type="text" th:field="*{largeur}" style="margin:7px;" /></td>
+                </tr>
+                <tr>
+                    <td>Hauteur (cm) </td>
+                    <td><input type="text" th:field="*{hauteur}" style="margin:7px;" /></td>
+                    <td th:if="${#fields.hasErrors('hauteur')}" th:errors="*{hauteur}">hauteur Error</td>
+                </tr>                
+                <tr>
+                	<td>Couleur </td>
+                	<td>	
+                		<input type="hidden" th:field="*{libCouleur}" style="margin:7px;"/>              		
+						<select name="thelist" onChange="combo(this, 'libCouleur')" style="width: 200px;margin: 7px;">
+  							<option></option>
+  							<option>Rouge</option>
+  							<option>Blanc</option>
+  							<option>Bleu</option>
+  							<option>Vert</option>
+  							<option>Noir</option>
+  							<option>Gris</option>
+						</select> 
+					</td>
+				</tr>
+				<tr>				
+                    <td><button class="btn btn-default" type="submit"  style="margin: 10px;"> Valider </button></td>
+                    <td><a class="btn btn-default" href="/"> Retour </a> </td>
+                </tr>
+            </table>
+          </fieldset>
+        </form></div>
+        <div class="col-md-7"></div>
+       </div>
+        
+        
+        
+        <script>        	
+        	
+        	function comboInit(libCouleur)
+			{
+ 				theinput = document.getElementById(libCouleur);  
+  				var idx = thelist.selectedIndex;
+  				var content = thelist.options[idx].innerHTML;
+  				if(theinput.value == "")
+    				theinput.value = content;	
+				}
+
+				function combo(thelist, libCouleur)
+				{
+  					theinput = document.getElementById(libCouleur);  
+  					var idx = thelist.selectedIndex;
+  					var content = thelist.options[idx].innerHTML;
+  					theinput.value = content;	
+				}
+        </script>
+    </body>
+</html>

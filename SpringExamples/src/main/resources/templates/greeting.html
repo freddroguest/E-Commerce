@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- BOOTSTRAP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>    <!-- Latest compiled and minified CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"></link>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<!-- <td><a class="btn btn-default" th:href="@{/form/{id} (id=${e.id})}"> Modifier</a> </td> -->
+<!-- <td><a class="btn btn-default" th:href="@{/deleteContact/{id} (id=${e.id})}"> Supprimer </a> </td> -->
+<div class="col-md-12" style="margin: 50px;">
+	<div class="col-md-1"></div>
+	<div class="col-md-9">
+	  <fieldset>
+	  	<legend> Liste des produits </legend>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Désignation		</th>
+					<th>Commentaire		</th>
+					<th>Couleur		</th>
+					<th>Prix		</th>
+					<th>Hauteur		</th>
+					<th>Largeur		</th>
+					<th>Profondeur		</th>
+				</tr>
+			</thead>
+		
+			<tr th:each="e : ${ListeProduit}">
+				<td th:text="${e.designation}"/>
+				<td th:text="${e.commentaire}"/>
+				<td th:text="${e.libCouleur}"/>	
+				<td th:text="${e.prix}"/>
+				<td th:text="${e.hauteur}"/>
+				<td th:text="${e.largeur}"/>
+				<td th:text="${e.profondeur}"/>	
+				<td>
+					<a class="btn btn-default" th:href="@{/produitForm/{id} (id=${e.id})}"> Modifier</a>
+					<a class="btn btn-default" th:href="@{/deleteProduit/{id} (id=${e.id})}"> Supprimer </a> 
+				</td>
+			</tr>
+		</table>
+	  </fieldset>
+		<a class="btn btn-default" href="produitForm.html" >Ajouter un produit</a>
+	</div>
+	<div class="col-md-1"></div>
+</div>
+
+
+
+</body>
+</html>
