@@ -4,19 +4,26 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class ProduitForm {
 	
-	 	@NotNull
+		@NotEmpty
 		private Long idType_produit;
-	 	@NotNull
+	 	@NotEmpty
 	 	@Size(min=5, max = 250)
 		private String designation;
+	 	@NotEmpty
 		private double prix;
+	 	@NotEmpty
 		private String commentaire;
 		private double hauteur;
 		private double largeur;
 		private double profondeur;
+		@NotEmpty
 		private String libCouleur;
+		@NotEmpty
+		private String typeProduit;
 		
 		public String getLibCouleur() {
 			return libCouleur;

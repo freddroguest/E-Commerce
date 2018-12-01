@@ -100,6 +100,10 @@ public class WebController implements WebMvcConfigurer {
     public String showProduit(Model model, @PathVariable("id") Long id)
     {
     	model.addAttribute("produitForm",repositoryProduit.findOne(id));
+    	List<Type_produit> list = repositoryTypeProduit.findAll();
+    	model.addAttribute("typeProduit", list);
+    	List<Couleur> listcouleur = repositoryCouleur.findAll();
+    	model.addAttribute("lstCouleur", listcouleur);
     	return "/produitForm";
     }
     
