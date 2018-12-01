@@ -53,13 +53,7 @@ public class WebController implements WebMvcConfigurer {
         registry.addViewController("/results").setViewName("results");
     }
     
-    @GetMapping("/")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model,HttpSession session, @CookieValue(value = "foo", defaultValue = "hello") String fooCookie) {
-        name="Fred";
-    	model.addAttribute("name", name);
-        session.setAttribute("valueSession", 42);
-        return "greeting";
-    }
+    //////////////////////////////////////////////////////// Model Attribute /////////////////////////////////////////////////////////////////////
     
     @ModelAttribute("someList")
     public ArrayList<Contact> getSomeList(){
@@ -85,6 +79,16 @@ public class WebController implements WebMvcConfigurer {
     	return l;
     }
     
+    //////////////////////////////////////////////////////// GetMapping /////////////////////////////////////////////////////////////////////
+    
+    @GetMapping("/")
+    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model,HttpSession session, @CookieValue(value = "foo", defaultValue = "hello") String fooCookie) {
+        name="Fred";
+    	model.addAttribute("name", name);
+        session.setAttribute("valueSession", 42);
+        return "greeting";
+    }
+       
     @GetMapping("/form/{id}")
     public String showContact(Model model, @PathVariable("id") Long id)
     {
@@ -118,26 +122,6 @@ public class WebController implements WebMvcConfigurer {
         return "typeProduitForm";
     }
     
-    @PostMapping("/typeProduitForm")
-    public String checkTypeProduitInfo(@Valid Type_produit type_produit, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "typeProduitForm";
-        }
-        repositoryTypeProduit.save(type_produit);
-        return "redirect:/";
-    }
-
-    @PostMapping("/form")
-    public String checkPersonInfo(@Valid Contact contact, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "form";
-        }
-        repository.save(contact);
-        return "redirect:/";
-    }
-    
     @GetMapping("/deleteContact/{id}")
     public String deleteContact(@PathVariable("id") Long id)
     {
@@ -164,17 +148,9 @@ public class WebController implements WebMvcConfigurer {
     	model.addAttribute("produitForm", new Produit());
     	List<Type_produit> list = repositoryTypeProduit.findAll();
     	model.addAttribute("typeProduit", list);
+    	List<Couleur> listcouleur = repositoryCouleur.findAll();
+    	model.addAttribute("lstCouleur", listcouleur);
         return "produitForm";
-    }
-    
-    @PostMapping("/produitForm")
-    public String checkProduitInfo(@Valid Produit produit, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "produitForm";
-        }
-        repositoryProduit.save(produit);
-        return "redirect:/";
     }
     
     @GetMapping("/couleurForm")
@@ -182,6 +158,56 @@ public class WebController implements WebMvcConfigurer {
     	model.addAttribute("couleurForm", new Couleur());
         return "couleurForm";
     }
+    
+    @GetMapping("/deleteCouleur/{id}")
+    public String deleteCouleur(@PathVariable("id") Long id)
+    {
+    	repositoryCouleur.delete(id);
+    	return "redirect:/";
+    }
+    
+    @GetMapping("/couleurForm/{id}")
+    public String showCouleur(Model model, @PathVariable("id") Long id)
+    {
+    	model.addAttribute("couleurForm",repositoryCouleur.findOne(id));
+    	return "/couleurForm";
+    }
+    
+    //////////////////////////////////////////////////////// PostMapping /////////////////////////////////////////////////////////////////////
+    
+    @PostMapping("/typeProduitForm")
+    public String checkTypeProduitInfo(@Valid Type_produit type_produit, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "typeProduitForm";
+        }
+        repositoryTypeProduit.save(type_produit);
+        return "redirect:/";
+    }
+
+    @PostMapping("/form")
+    public String checkPersonInfo(@Valid Contact contact, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }
+        repository.save(contact);
+        return "redirect:/";
+    }    
+    
+    @PostMapping("/produitForm")
+    public String checkProduitInfo(@Valid Produit produit, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "produitForm";
+        }
+        
+    	produit.setLibCouleur(repositoryCouleur.findOne(produit.getCouleur()).getLibelle());
+    	produit.setLibtype(repositoryTypeProduit.findOne(produit.getIdType_produit()).getLibelle()); 	
+    	
+        repositoryProduit.save(produit);
+        return "redirect:/";
+    }    
     
     @PostMapping("/couleurForm")
     public String checkCouleurInfo(@Valid Couleur couleur, BindingResult bindingResult) {
@@ -193,6 +219,8 @@ public class WebController implements WebMvcConfigurer {
         return "redirect:/";
     }
     
+    
+    ///////////////////////////////////////////////////// Other ////////////////////////////////////////////////////
     
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {

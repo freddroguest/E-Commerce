@@ -48,16 +48,13 @@
                 </tr>                
                 <tr>
                 	<td>Couleur </td>
-                	<td>	
-                		<input type="hidden" th:field="*{libCouleur}" style="margin:7px;"/>              		
-						<select name="thelist" onChange="combo(this, 'libCouleur')" style="width: 200px;margin: 7px;">
-  							<option th:text="${produitForm.libCouleur}"></option>
-  							<option>Rouge</option>
-  							<option>Blanc</option>
-  							<option>Bleu</option>
-  							<option>Vert</option>
-  							<option>Noir</option>
-  							<option>Gris</option>
+                	<td>	          		
+						<select th:field="*{couleur}" style="width: 200px;margin: 7px;">
+  							<option value=""></option>
+  							<option th:each="e : ${lstCouleur}"
+  									th:value="${e.id}"
+  									th:utext="${e.libelle}"/>
+  							
 						</select> 
 					</td>
 				</tr>
@@ -82,26 +79,5 @@
         <div class="col-md-7"></div>
        </div>
         
-        
-        
-        <script>        	
-        	
-        	function comboInit(libCouleur)
-			{
- 				theinput = document.getElementById(libCouleur);  
-  				var idx = thelist.selectedIndex;
-  				var content = thelist.options[idx].innerHTML;
-  				if(theinput.value == "")
-    				theinput.value = content;	
-				}
-
-				function combo(thelist, libCouleur)
-				{
-  					theinput = document.getElementById(libCouleur);  
-  					var idx = thelist.selectedIndex;
-  					var content = thelist.options[idx].innerHTML;
-  					theinput.value = content;	
-				}
-        </script>
     </body>
 </html>

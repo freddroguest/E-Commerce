@@ -17,13 +17,15 @@ public class Produit {
 	private double hauteur;
 	private double largeur;
 	private double profondeur;
+	private Long couleur;
 	private String libCouleur;
+	private String libtype;
 
 	protected Produit() {
 	}
 
 	public Produit(String designation, Long idType_produit, String commentaire, double prix, double hauteur,
-			double largeur, double profondeur, String lib_couleur) {
+			double largeur, double profondeur, String lib_couleur, String libtype) {
 		this.designation = designation;
 		this.idType_produit = idType_produit;
 		this.commentaire = commentaire;
@@ -32,6 +34,7 @@ public class Produit {
 		this.profondeur = profondeur;
 		this.largeur = largeur;
 		this.libCouleur = lib_couleur;
+		this.libtype = libtype;
 	}
 
 	public Long getIdType_produit() {
@@ -49,6 +52,14 @@ public class Produit {
 	public void setLibCouleur(String libCouleur) {
 		this.libCouleur = libCouleur;
 	}
+	
+	public String getLibType() {
+		return libtype;
+	}
+
+	public void setLibtype(String libType) {
+		this.libtype = libType;
+	}
 
 	public String getDesignation() {
 		return designation;
@@ -64,6 +75,14 @@ public class Produit {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Long getCouleur() {
+		return couleur;
+	}
+
+	public void setCouleur(Long couleur) {
+		this.couleur = couleur;
 	}
 
 	public String getCommentaire() {
