@@ -10,42 +10,33 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>    
     <body>
+    	<div class="col-md-12">
+    		<div class="col-md-1"></div>
+    		<div class="col-md-9"></div>
+    		<div class="col-md-2"></div>
+    			
+		</div>
+    
+    
     	<div class="col-md-12" style="height: 50px;"> </div>
     	<div class="col-md-12">
     	 <div class="col-md-1"></div>
          <div class="col-md-4">
-         <form class="form-group" action="#" th:action="@{/inscription}" th:object="${client}" method="post">
+         <form class="form-group" action="#" th:action="@{/connexion}" th:object="${client}" method="post">
             <fieldset>
-            	<legend>Inscription </legend>
+            	<legend>Connexion </legend>
            		<table>
             	<input type="hidden" th:field="*{id}" />
                 	<tr>
-                  	  <td> Nom </td>
-                 	   <td><input type="text" th:field="*{name}" style="margin:7px;"/></td>
-                	    <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</td>                    
+                  	  <td> Email </td>
+                 	   <td><input type="text" th:field="*{email}" style="margin:7px;"/></td>
+                	    <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</td>                    
              	   </tr>  
              	   <tr>
-              	      <td>Prénom </td>
-             	       <td><input type="text" th:field="*{prenom}" style="margin:7px;" /></td>
-             	       <td th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}">prenom Error</td>
-              	  </tr>      
-              	  <tr>
-               	     	<td>Age </td>
-               	     	<td><input type="text" th:field="*{age}" style="margin:7px;" /></td>
-              	      	<td th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age Error</td>
-              	  </tr>
-             	   <tr>
-               	     	<td>Email </td>
-                    	<td><input type="text" th:field="*{email}" style="margin:7px;" /></td> 
-                	</tr>
-                	 <tr>
-               	     	<td>Mot de passe </td>
-                    	<td><input type="text" th:field="*{mdp}" style="margin:7px;" /></td> 
-                	</tr>
-                	<tr>
-                    	<td>Numéro </td>
-                   	 	<td><input type="text" th:field="*{numero}" style="margin:7px;" /></td>
-                	</tr>                                      
+              	      <td>Mod de passe </td>
+             	       <td><input type="password" th:field="*{mdp}" style="margin:7px;" /></td>
+             	       <td th:if="${#fields.hasErrors('mdp')}" th:errors="*{mdp}">Mdp Error</td>
+              	  </tr>                                          
 					<tr>				
                     	<td><button class="btn btn-default" type="submit"  style="margin: 10px;"> Valider </button></td>
                     	<td><a class="btn btn-default" href="/"> Retour </a> </td>

@@ -130,6 +130,12 @@ public class WebController implements WebMvcConfigurer {
         return "form";
     }
     
+    @GetMapping("/connexion")
+    public String showConnexionForm(Model model) {
+    	model.addAttribute("client", new Client());
+        return "connexion";
+    }
+    
     @GetMapping("/inscription")
     public String showInscriptionForm(Model model) {
     	model.addAttribute("client", new Client());
@@ -141,6 +147,13 @@ public class WebController implements WebMvcConfigurer {
     {
     	model.addAttribute("typeProduitForm",repositoryTypeProduit.findOne(id));
     	return "/typeProduitForm";
+    }
+    
+    @GetMapping("/inscription/{id}")
+    public String showClient(Model model, @PathVariable("id") Long id)
+    {
+    	model.addAttribute("client",repositoryClient.findOne(id));
+    	return "/inscription";
     }
     
     @GetMapping("/typeProduitForm")
@@ -160,6 +173,13 @@ public class WebController implements WebMvcConfigurer {
     public String deleteProduit(@PathVariable("id") Long id)
     {
     	repositoryProduit.delete(id);
+    	return "redirect:/";
+    }
+    
+    @GetMapping("/deleteClient/{id}")
+    public String deleteClient(@PathVariable("id") Long id)
+    {
+    	repositoryClient.delete(id);
     	return "redirect:/";
     }
     
@@ -225,6 +245,27 @@ public class WebController implements WebMvcConfigurer {
         }
         repositoryClient.save(client);
         return "redirect:/";
+    }
+    
+    @PostMapping("/connexion")
+    public String checkConnexionInfo(@Valid Client client, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "connexion";
+        } 
+        for(int i =0; i < repositoryClient.findAll().size(); i++)
+        {
+        	if(repositoryClient.findAll().get(i).getEmail().equals(client.getEmail()))
+        	{
+        		if(repositoryClient.findAll().get(i).getMdp().equals(client.getMdp()))
+        		{
+        			return "redirect:/";
+        		}
+        	}
+        }
+        
+        
+        return "connexion";
     }
 
     @PostMapping("/form")

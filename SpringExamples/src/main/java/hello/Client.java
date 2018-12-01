@@ -15,16 +15,18 @@ public class Client {
     private String age;
     private String email;
     private String numero;
+    private String mdp;
 
     protected Client() {}
     
-    public Client(String prenom, String nom, String age, String email, String numero)
+    public Client(String prenom, String nom, String age, String email,String mdp, String numero)
     {
     	this.prenom = prenom;
         this.name = nom;
         this.age=age;
         this.email=email;
         this.numero=numero;
+        this.mdp=mdp;
     }
     
     @Override
@@ -48,6 +50,14 @@ public class Client {
 
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
+	}
+	
+	public String getMdp() {
+		return mdp;
+	}
+
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
 	}
 
 	public String getName() {
