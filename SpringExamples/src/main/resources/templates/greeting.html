@@ -93,8 +93,36 @@
 				</table>
 	 		</fieldset>
 	 		
-		<a class="btn btn-default" href="couleurForm.html" >Ajouter une couleur</a>
+	 		<fieldset>
+	  		<legend> Liste des clients </legend>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Nom	</th>
+							<th>Prenom	</th>
+							<th>Age	</th>
+							<th>Email	</th>
+							<th>Numéro	</th>
+						</tr>
+					</thead>
 		
+					<tr th:each="e : ${ListeClient}">
+						<td th:text="${e.name}"/>
+						<td th:text="${e.prenom}"/>
+						<td th:text="${e.age}"/>
+						<td th:text="${e.email}"/>
+						<td th:text="${e.numero}"/>						
+						<td>
+							<a class="btn btn-default" th:href="@{/couleurForm/{id} (id=${e.id})}"> Modifier</a>
+							<a class="btn btn-default" th:href="@{/deleteCouleur/{id} (id=${e.id})}"> Supprimer </a> 
+						</td>
+					</tr>
+				</table>
+	 		</fieldset>
+	 		
+		<a class="btn btn-default" href="couleurForm.html" >Ajouter une couleur</a>
+		<a class="btn btn-default" href="panier.html" >Voir le panier</a>
+		<a class="btn btn-default" href="inscription.html" >S'inscrire</a>
 	</div>
 	<div class="col-md-1"></div>
 </div>

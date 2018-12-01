@@ -47,6 +47,8 @@ public class WebController implements WebMvcConfigurer {
 	CouleurRepository repositoryCouleur;
 	@Autowired
 	TypeProduitRepository repositoryTypeProduit;
+	@Autowired
+	ClientRepository repositoryClient;
 	
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
@@ -66,10 +68,25 @@ public class WebController implements WebMvcConfigurer {
     	ArrayList<Produit> l= new ArrayList<Produit>(repositoryProduit.findAll());
     	return l;
     }
+    
+    
+    /*
+    @ModelAttribute("ListePanier")
+    public Panier getListePanier(Long id){
+    	Panier panier= repositoryPanier.findOne(id);
+    	return panier;
+    }*/
+
 
     @ModelAttribute("ListeCouleur")
     public ArrayList<Couleur> getListeCouleur(){
     	ArrayList<Couleur> l= new ArrayList<Couleur>(repositoryCouleur.findAll());
+    	return l;
+    }
+    
+    @ModelAttribute("ListeClient")
+    public ArrayList<Client> getListeClient(){
+    	ArrayList<Client> l= new ArrayList<Client>(repositoryClient.findAll());
     	return l;
     }
     
@@ -111,6 +128,12 @@ public class WebController implements WebMvcConfigurer {
     public String showForm(Model model) {
     	model.addAttribute("personForm", new Contact());
         return "form";
+    }
+    
+    @GetMapping("/inscription")
+    public String showInscriptionForm(Model model) {
+    	model.addAttribute("client", new Client());
+        return "inscription";
     }
     
     @GetMapping("/typeProduitForm/{id}")
@@ -176,7 +199,12 @@ public class WebController implements WebMvcConfigurer {
     	model.addAttribute("couleurForm",repositoryCouleur.findOne(id));
     	return "/couleurForm";
     }
-    
+    /*
+    @GetMapping("/panier")
+    public String showPanier(Model model, @PathVariable("id") Long id) {
+    	model.addAttribute("panier", repositoryPanier.findOne(id));
+        return "panier";
+    }*/
     //////////////////////////////////////////////////////// PostMapping /////////////////////////////////////////////////////////////////////
     
     @PostMapping("/typeProduitForm")
@@ -186,6 +214,16 @@ public class WebController implements WebMvcConfigurer {
             return "typeProduitForm";
         }
         repositoryTypeProduit.save(type_produit);
+        return "redirect:/";
+    }
+    
+    @PostMapping("/inscription")
+    public String checkclientInfo(@Valid Client client, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "inscription";
+        }
+        repositoryClient.save(client);
         return "redirect:/";
     }
 
@@ -223,6 +261,7 @@ public class WebController implements WebMvcConfigurer {
         return "redirect:/";
     }
     
+
     
     ///////////////////////////////////////////////////// Other ////////////////////////////////////////////////////
     

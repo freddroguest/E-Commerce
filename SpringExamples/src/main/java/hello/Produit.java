@@ -36,6 +36,18 @@ public class Produit {
 		this.libCouleur = lib_couleur;
 		this.libtype = libtype;
 	}
+	
+	public Produit(Produit produit) {
+		this.designation = produit.designation;
+		this.idType_produit = produit.idType_produit;
+		this.commentaire = produit.commentaire;
+		this.prix = produit.prix;
+		this.hauteur = produit.hauteur;
+		this.profondeur = produit.profondeur;
+		this.largeur = produit.largeur;
+		this.libCouleur = produit.libCouleur;
+		this.libtype = produit.libtype;
+	}
 
 	public Long getIdType_produit() {
 		return idType_produit;

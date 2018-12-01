@@ -19,7 +19,7 @@
             <table>
             <input type="hidden" th:field="*{id}" />
                 <tr>
-                    <td >D�signation </td>
+                    <td >Désignation </td>
                     <td><input type="text" th:field="*{designation}" style="margin:7px;"/></td>
                     <td th:if="${#fields.hasErrors('designation')}" th:errors="*{designation}">Name Error</td>                    
                 </tr>  
