@@ -70,13 +70,13 @@ public class WebController implements WebMvcConfigurer {
     }
     
     
-    /*
+   /* 
     @ModelAttribute("ListePanier")
     public Panier getListePanier(Long id){
     	Panier panier= repositoryPanier.findOne(id);
     	return panier;
-    }*/
-
+    }
+*/
 
     @ModelAttribute("ListeCouleur")
     public ArrayList<Couleur> getListeCouleur(){
